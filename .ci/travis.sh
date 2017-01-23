@@ -45,6 +45,11 @@ SBT_COMMANDS="compile test it:test"
 
 if echo "$TRAVIS_SCALA_VERSION" | grep -q "^2\.10"; then
   SBT_COMMANDS="$SBT_COMMANDS publishLocal" # to make the scripted tests happy
+
+   # for the shading scripted test
+  sudo cp coursier /usr/local/bin/
+  ( git clone https://github.com/alexarchambault/jarjar.git && cd jarjar && git checkout 249c8dbb970f8 && ./gradlew :jarjar-core:install && cd .. && rm -rf jarjar )
+
   SBT_COMMANDS="$SBT_COMMANDS plugin/scripted"
 fi
 

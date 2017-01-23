@@ -8,6 +8,7 @@ import coursier.core.Publication
 import sbt.{ GetClassifiersModule, Resolver, SettingKey, TaskKey }
 
 import scala.concurrent.duration.Duration
+import scalaz.\/
 
 object Keys {
   val coursierParallelDownloads = SettingKey[Int]("coursier-parallel-downloads")
@@ -51,4 +52,6 @@ object Keys {
     "coursier-dependency-inverse-tree",
     "Prints dependencies and transitive dependencies as an inverted tree (dependees as children)"
   )
+
+  val coursierArtifacts = TaskKey[Map[Artifact, FileError \/ File]]("artifact-files-or-errors")
 }

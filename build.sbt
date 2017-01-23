@@ -561,7 +561,11 @@ lazy val plugin = project
       Resolver.sonatypeRepo("snapshots"),
       // added for sbt-scripted to be fine even with ++2.11.x
       Resolver.typesafeIvyRepo("releases")
-    )
+    ),
+    // Warning: this version doesn't handle well class names with '$'s
+    // (so basically any Scala library)
+    // See https://github.com/shevek/jarjar/pull/4
+    libraryDependencies += "org.anarres.jarjar" % "jarjar-core" % "1.0.0"
   )
   .settings(ScriptedPlugin.scriptedSettings)
   .settings(
